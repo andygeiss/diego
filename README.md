@@ -50,6 +50,11 @@ by using the current Git revision as a version tag:
 
 ## Usage
 
+## Configuration
+
+* Define your facts and rules in the file <code>proddata/inference.json</code>.
+* Define your survey questions and options in the file <code>proddata/explanation.json</code>.
+
 ### Running the Binary
 
 Ensure that the environment variables are set.
