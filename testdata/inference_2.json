@@ -1,0 +1,16 @@
+[
+  {
+    "name": "two",
+    "facts": ["A","B"],
+    "rules": [
+      {
+        "conditions": ["A"],
+        "conclusions": ["X"]
+      },
+      {
+        "conditions": ["B"],
+        "conclusions": ["Y"]
+      }
+    ]
+  }
+]

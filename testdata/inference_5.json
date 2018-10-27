@@ -1,0 +1,12 @@
+[
+  {
+    "name": "five",
+    "facts": ["A","B","C","D","E"],
+    "rules": [
+      {
+        "conditions": ["A"],
+        "conclusions": ["X"]
+      }
+    ]
+  }
+]

@@ -1,0 +1,24 @@
+[
+  {
+    "name": "Survey",
+    "questions": [
+      {
+        "prompt": "Go on Vacation?",
+        "options": [
+          {
+            "name": "Go to Europe",
+            "value": "1"
+          },
+          {
+            "name": "Visit Family",
+            "value": "2"
+          },
+          {
+            "name": "Go Camping Instate",
+            "value": "3"
+          }
+        ]
+      }
+    ]
+  }
+]

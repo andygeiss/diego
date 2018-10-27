@@ -1,0 +1,16 @@
+[
+  {
+    "name": "cycle 1",
+    "facts": ["A", "B", "C", "D", "E"],
+    "rules": [
+      {
+        "conditions": ["A"],
+        "conclusions": ["X"]
+      },
+      {
+        "conditions": ["C"],
+        "conclusions": ["L"]
+      }
+    ]
+  }
+]

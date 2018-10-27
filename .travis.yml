@@ -1,0 +1,35 @@
+language: go
+sudo: false
+go:
+- 1.11.x
+jobs:
+  include:
+  - stage: test
+    script:
+    - echo "testing source ..."
+    - ./scripts/test.sh
+  - stage: build and release
+    script:
+    - echo "getting upx ..."
+    - sudo apt-get install -y upx
+    - echo "compiling binary ..."
+    - ./scripts/compile.sh
+    - echo "creating release ..."
+    - git tag "$(date +'%Y%m%d%H%M%S')-$(git log --format=%h -1)"
+    install: true
+    deploy:
+      provider: releases
+      api_key: $API_KEY
+      file:
+        - build/package/app-linux-amd64
+        - build/package/app-linux-arm64
+        - build/package/app-linux-amd
+        - build/package/app-linux-s390x
+        - build/package/lib.wasm
+        - build/package/server-linux-amd64
+        - build/package/server-linux-arm64
+        - build/package/server-linux-amd
+        - build/package/server-linux-s390x
+      skip_cleanup: true
+      on:
+        repo: andygeiss/diego

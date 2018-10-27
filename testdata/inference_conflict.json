@@ -1,0 +1,16 @@
+[
+  {
+    "name": "conflict",
+    "facts": ["A"],
+    "rules": [
+      {
+        "conditions": ["A"],
+        "conclusions": ["X"]
+      },
+      {
+        "conditions": ["A"],
+        "conclusions": ["Y"]
+      }
+    ]
+  }
+]
