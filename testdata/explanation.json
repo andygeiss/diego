@@ -1,0 +1,49 @@
+[
+  {
+    "name": "SURVEY NAME",
+    "questions": [
+      {
+        "prompt": "Question 1 ?",
+        "options": [
+          {
+            "name": "Option 4",
+            "value": "#Q1 = 4"
+          },
+          {
+            "name": "Option 3",
+            "value": "#Q1 = 3"
+          },
+          {
+            "name": "Option 2",
+            "value": "#Q1 = 2"
+          },
+          {
+            "name": "Option 1",
+            "value": "#Q1 = 1"
+          }
+        ]
+      },
+      {
+        "prompt": "Question 2 ?",
+        "options": [
+          {
+            "name": "Option 4",
+            "value": "#Q2 = 4"
+          },
+          {
+            "name": "Option 3",
+            "value": "#Q2 = 3"
+          },
+          {
+            "name": "Option 2",
+            "value": "#Q2 = 2"
+          },
+          {
+            "name": "Option 1",
+            "value": "#Q2 = 1"
+          }
+        ]
+      }
+    ]
+  }
+]
