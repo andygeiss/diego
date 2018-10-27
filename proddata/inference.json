@@ -1,0 +1,64 @@
+[
+  {
+    "name": "Schadensklasse bestimmen",
+    "facts": [],
+    "rules": [
+      {
+        "conditions": ["#Q1 = 1"],
+        "conclusions": [
+          "Question 1 answered",
+          "Option 1 selected"
+        ]
+      },
+      {
+        "conditions": ["#Q1 = 2"],
+        "conclusions": [
+          "Question 1 answered",
+          "Option 2 selected"
+        ]
+      },
+      {
+        "conditions": ["#Q1 = 3"],
+        "conclusions": [
+          "Question 1 answered",
+          "Option 3 selected"
+        ]
+      },
+      {
+        "conditions": ["#Q1 = 4"],
+        "conclusions": [
+          "Question 1 answered",
+          "Option 4 selected"
+        ]
+      },
+      {
+        "conditions": ["#Q2 = 1"],
+        "conclusions": [
+          "Question 2 answered",
+          "Option 1 selected"
+        ]
+      },
+      {
+        "conditions": ["#Q2 = 2"],
+        "conclusions": [
+          "Question 2 answered",
+          "Option 2 selected"
+        ]
+      },
+      {
+        "conditions": ["#Q2 = 3"],
+        "conclusions": [
+          "Question 2 answered",
+          "Option 3 selected"
+        ]
+      },
+      {
+        "conditions": ["#Q2 = 4"],
+        "conclusions": [
+          "Question 2 answered",
+          "Option 4 selected"
+        ]
+      }
+    ]
+  }
+]

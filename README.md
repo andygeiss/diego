@@ -50,7 +50,7 @@ by using the current Git revision as a version tag:
 
 ## Usage
 
-## Configuration
+### Configuration
 
 * Define your facts and rules in the file <code>proddata/inference.json</code>.
 * Define your survey questions and options in the file <code>proddata/explanation.json</code>.
@@ -63,8 +63,8 @@ Now run application by simply call the binary directly:
     sudo ./build/package/app &
 
     sudo ./build/package/server \
-        -exp ./explanation.json \
-        -inf ./inference.json \
+        -exp ./proddata/explanation.json \
+        -inf ./proddata/inference.json \
         -survey "SURVEY NAME" &
 
 ### Running with Docker
