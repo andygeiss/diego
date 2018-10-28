@@ -1,27 +1,29 @@
 package main
 
 import (
-	"flag"
 	"github.com/andygeiss/diego/internal/explanation"
 	"github.com/andygeiss/diego/internal/inference"
 	"github.com/andygeiss/diego/internal/survey"
 	"github.com/andygeiss/diego/internal/survey/handlers"
 	"log"
 	"net/http"
+	"os"
 )
 
 func main() {
 
-	address := ":3000"
+	bind := os.Getenv("BIND")
+	infRepoFile := os.Getenv("INF_REPO")
+	expRepoFile := os.Getenv("EXP_REPO")
+	surveyName := os.Getenv("SURVEY")
 
-	infRepoFile := flag.String("inf", "", "JSON-File of Inference Repository")
-	expRepoFile := flag.String("exp", "", "JSON-File of Explanation Repository")
-	surveyName := flag.String("survey", "", "Name of the Survey")
-	flag.Parse()
+	log.Printf("INFO : Explanation Repository is   [%s]", expRepoFile)
+	log.Printf("INFO : Inference Repository is     [%s]", infRepoFile)
+	log.Printf("INFO : Survey name is              [%s]", surveyName)
 
-	infRepo := inference.NewDefaultRepository(*infRepoFile)
-	engine := inference.NewDefaultEngine(*surveyName, infRepo)
-	expoRepo := explanation.NewDefaultRepository(*expRepoFile)
+	infRepo := inference.NewDefaultRepository(infRepoFile)
+	engine := inference.NewDefaultEngine(surveyName, infRepo)
+	expoRepo := explanation.NewDefaultRepository(expRepoFile)
 	service := survey.NewDefaultService(expoRepo, engine)
 
 	http.Handle("/questions", handlers.NewFindQuestionsBySurveyHandler(service))
@@ -29,8 +31,8 @@ func main() {
 
 	for {
 		log.Printf("INFO : Starting Server ...")
-		log.Printf("INFO : Listening at [%s] ...", address)
-		if err := http.ListenAndServe(address, nil); err != nil {
+		log.Printf("INFO : Listening at [%s] ...", bind)
+		if err := http.ListenAndServe(bind, nil); err != nil {
 			log.Printf("ERROR: ListenAndServe failed! [%s]", err.Error())
 		}
 	}

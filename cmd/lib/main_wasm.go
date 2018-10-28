@@ -9,17 +9,12 @@ import (
 	"syscall/js"
 )
 
-const (
-	questionsURL = "http://127.0.0.1:3000/questions"
-	resultsURL   = "http://127.0.0.1:3000/results"
-	surveyName   = "SURVEY NAME"
-)
-
 var selection = make(map[string]string, 0)
 
 func main() {
 	c := make(chan struct{}, 0)
 	log.Printf("INFO : App is running ...")
+	surveyName := wasm.GetById("surveyName").Get("value").String()
 	prepareSurvey(surveyName)
 	prepareEvaluation()
 	showContents()
@@ -28,11 +23,12 @@ func main() {
 
 func prepareSurvey(name string) {
 	btnLoad := wasm.GetById("btnLoad")
+	engineURL := wasm.GetById("engineURL").Get("value").String()
 	// Onclick
 	btnLoad.Call("addEventListener", "click", js.NewCallback(func(v []js.Value) {
 		go func() {
 			req := &handlers.FindQuestionsBySurveyRequest{Name: name}
-			res, err := handlers.InvokeFindQuestionsBySurvey(questionsURL, req)
+			res, err := handlers.InvokeFindQuestionsBySurvey(engineURL+"/questions", req)
 			if err != nil {
 				updateErrors(err)
 				return
@@ -46,6 +42,7 @@ func prepareSurvey(name string) {
 
 func prepareEvaluation() {
 	btnEvaluate := wasm.GetById("btnEvaluate")
+	engineURL := wasm.GetById("engineURL").Get("value").String()
 	// Onclick
 	btnEvaluate.Call("addEventListener", "click", js.NewCallback(func(v []js.Value) {
 		facts := make([]string, 0)
@@ -54,7 +51,7 @@ func prepareEvaluation() {
 		}
 		go func() {
 			req := &handlers.GetResultsByFactsRequest{Facts: facts}
-			res, err := handlers.InvokeGetResultsByFacts(resultsURL, req)
+			res, err := handlers.InvokeGetResultsByFacts(engineURL+"/results", req)
 			if err != nil {
 				updateErrors(err)
 				return

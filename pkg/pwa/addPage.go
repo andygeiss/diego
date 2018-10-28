@@ -8,8 +8,8 @@ import (
 )
 
 // AddPage ...
-func AddPage(pattern, templateFile, title string) {
+func AddPage(pattern, templateFile, engineURL, surveyName, title string) {
 	styles := base64.StdEncoding.EncodeToString(parse.Files("web/css/styles.css"))
 	scripts := base64.StdEncoding.EncodeToString(parse.Files("vendor/wasm_exec.js", "web/js/init.js"))
-	http.Handle(pattern, handlers.NewStaticPageHandler(templateFile, title, scripts, styles))
+	http.Handle(pattern, handlers.NewStaticPageHandler(templateFile, engineURL, surveyName, title, scripts, styles))
 }

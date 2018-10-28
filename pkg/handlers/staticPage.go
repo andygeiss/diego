@@ -12,9 +12,9 @@ type StaticPageHandler struct {
 }
 
 // NewStaticPageHandler ...
-func NewStaticPageHandler(templateFile, title, scripts, styles string) http.Handler {
+func NewStaticPageHandler(templateFile, engineURL, surveyName, title, scripts, styles string) http.Handler {
 	return &StaticPageHandler{
-		content: embed(templateFile, title, scripts, styles),
+		content: embed(templateFile, engineURL, surveyName, title, scripts, styles),
 	}
 }
 
@@ -24,15 +24,19 @@ func (h *StaticPageHandler) ServeHTTP(res http.ResponseWriter, req *http.Request
 }
 
 // embed creates the static content by using the template engine.
-func embed(templateFile, title, scripts, styles string) []byte {
+func embed(templateFile, engineURL, surveyName, title, scripts, styles string) []byte {
 	out, err := render.Template(templateFile, struct {
-		Scripts string
-		Styles  string
-		Title   string
+		EngineURL  string
+		Scripts    string
+		Styles     string
+		SurveyName string
+		Title      string
 	}{
-		Scripts: scripts,
-		Styles:  styles,
-		Title:   title,
+		EngineURL:  engineURL,
+		Scripts:    scripts,
+		Styles:     styles,
+		SurveyName: surveyName,
+		Title:      title,
 	})
 	if err != nil {
 		log.Printf("ERROR: Rendering of [%s] failed! [%s]", templateFile, err.Error())

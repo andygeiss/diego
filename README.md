@@ -33,15 +33,7 @@ This repository follows the [Standard Go Project Layout](https://github.com/gola
 
 ### Binaries
 
-Get the current [release](https://github.com/andygeiss/diego/releases/tag/latest) and install it into your current environment:
-
-    curl -L0 https://github.com/andygeiss/diego/releases/download/latest/app-linux-amd64 > app    
-    curl -L0 https://github.com/andygeiss/diego/releases/download/latest/server-linux-amd64 > app
-    chmod +x app
-    chmod +x server
-
-    sudo ./app &
-    sudo ./server &
+Get the current [release](https://github.com/andygeiss/diego/releases/tag/latest) and install it into your current environment.
 
 ### From Source
 
@@ -62,12 +54,17 @@ by using the current Git revision as a version tag:
 Ensure that the environment variables are set.
 Now run application by simply call the binary directly:
 
-    sudo ./build/package/app &
+    sudo BIND=":80" \
+        ENGINE_URL="http://127.0.0.1:3000" \
+        SURVEY="SURVEY NAME" \
+        APP_TITLE="DIEGO" \
+        ./build/package/app &
 
-    sudo ./build/package/server \
-        -exp ./proddata/explanation.json \
-        -inf ./proddata/inference.json \
-        -survey "SURVEY NAME" &
+    sudo BIND=":3000" \
+        EXP_REPO="proddata/explanation.json" \
+        INF_REPO="proddata/inference.json" \
+        SURVEY="SURVEY NAME" \
+        ./build/package/server &
 
 ### Running with Docker
 
@@ -78,13 +75,18 @@ Now run application by simply call the binary directly:
         --publish 80:80 \
         --volume `pwd`/vendor:/vendor \
         --volume `pwd`/web:/web \
+        --env BIND=":80" \
+        --env ENGINE_URL="http://127.0.0.1:3000" \
+        --env SURVEY="SURVEY NAME" \
+        --env APP_TITLE="DIEGO" \
         $USER/diego:latest /app
 
     docker run -d \
         --name diego-server \
         --publish 3000:3000 \
         --volume `pwd`/proddata:/data \
-        $USER/diego:latest /server \
-        -exp /data/explanation.json \
-        -inf /data/inference.json \
-        -survey "SURVEY NAME"
+        --env BIND=":3000" \
+        --env EXP_REPO="/data/explanation.json" \
+        --env INF_REPO="/data/inference.json" \
+        --env SURVEY="SURVEY NAME" \
+        $USER/diego:latest /server

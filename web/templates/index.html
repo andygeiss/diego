@@ -11,9 +11,11 @@
     <div id="loader">Loading...</div>
     <div id="header">
         <img id="brand" src="/img/logo.png"/>
-        <span id="title">DIEGO</span>
+        <span id="title">{{ .Title }}</span>
     </div>
     <div id="content" style="display: none">
+        <input id="engineURL" type="hidden" value="{{ .EngineURL }}"/>
+        <input id="surveyName" type="hidden" value="{{ .SurveyName }}"/>
         <button id="btnLoad" style="display: none">Load Survey</button>
         <div id="survey"></div>
         <div id="results"></div>
