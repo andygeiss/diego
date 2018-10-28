@@ -12,7 +12,7 @@ import (
 const (
 	questionsURL = "http://127.0.0.1:3000/questions"
 	resultsURL   = "http://127.0.0.1:3000/results"
-	surveyName   = "Schadensklasse bestimmen"
+	surveyName   = "SURVEY NAME"
 )
 
 var selection = make(map[string]string, 0)

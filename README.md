@@ -16,6 +16,8 @@ apply rules to draw conclusions.
 The web-based user interface provides a survey with its questions and different options.
 These options represents the facts, which could be used as an input for the inference engine. 
 
+[![](doc/survey.png)]() [![](doc/results.png)]()
+
 This repository follows the [Standard Go Project Layout](https://github.com/golang-standards/project-layout). 
 
 ##### Table of Contents
