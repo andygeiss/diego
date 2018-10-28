@@ -12,11 +12,12 @@ import (
 
 func main() {
 
-	bind := os.Getenv("BIND")
+	bindAddr := os.Getenv("BIND")
 	infRepoFile := os.Getenv("INF_REPO")
 	expRepoFile := os.Getenv("EXP_REPO")
 	surveyName := os.Getenv("SURVEY")
 
+	log.Printf("INFO : Bind address is             [%s]", bindAddr)
 	log.Printf("INFO : Explanation Repository is   [%s]", expRepoFile)
 	log.Printf("INFO : Inference Repository is     [%s]", infRepoFile)
 	log.Printf("INFO : Survey name is              [%s]", surveyName)
@@ -31,8 +32,8 @@ func main() {
 
 	for {
 		log.Printf("INFO : Starting Server ...")
-		log.Printf("INFO : Listening at [%s] ...", bind)
-		if err := http.ListenAndServe(bind, nil); err != nil {
+		log.Printf("INFO : Listening at [%s] ...", bindAddr)
+		if err := http.ListenAndServe(bindAddr, nil); err != nil {
 			log.Printf("ERROR: ListenAndServe failed! [%s]", err.Error())
 		}
 	}
