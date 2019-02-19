@@ -1,7 +1,6 @@
 # DIEGO - A Data Driven Inference Engine written in GO 
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/andygeiss/diego)](https://goreportcard.com/report/github.com/andygeiss/diego)
-[![Build Status](https://travis-ci.org/andygeiss/diego.svg?branch=master)](https://travis-ci.org/andygeiss/diego)
 
 DIEGO provides a framework to link practical user interfaces to domain specific knowledge of experts.
 
@@ -13,80 +12,44 @@ An expert system usually consists of three parts:
 The inference engine uses a top-down method to take facts as they become available and
 apply rules to draw conclusions.
 
-The web-based user interface provides a survey with its questions and different options.
-These options represents the facts, which could be used as an input for the inference engine. 
-
-[![](doc/survey.png)]() [![](doc/results.png)]()
-
-This repository follows the [Standard Go Project Layout](https://github.com/golang-standards/project-layout). 
-
 ##### Table of Contents
 
 - [Installation](README.md#installation)
-    * [Binaries](README.md#binaries)
     * [From Source](README.md#from-source)
 - [Usage](README.md#usage)
-    * [Running the Binary](README.md#running-the-binary)
-    * [Running with Docker](README.md#running-with-docker)
 
 ## Installation
 
-### Binaries
-
-Get the current [release](https://github.com/andygeiss/diego/releases/tag/latest) and install it into your current environment.
-
 ### From Source
 
-At first we will run the tests, compile a static binary and build a Docker image from scratch 
-by using the current Git revision as a version tag: 
-
-     ./scripts/test.sh && ./scripts/compile.sh
+    go get -u github.com/andygeiss/diego
 
 ## Usage
 
-### Configuration
+The following code ...
+* specifies the survey questions and options for the explanation repository and
+* specifies the facts and rules/conditions for the inference engine:
 
-* Define your facts and rules in the file <code>proddata/inference.json</code>.
-* Define your survey questions and options in the file <code>proddata/explanation.json</code>.
+```go
+import (
+	expRepos "github.com/andygeiss/diego/pkg/explanation/repositories"
+	"github.com/andygeiss/diego/pkg/inference/engines"
+	infRepos "github.com/andygeiss/diego/pkg/inference/repositories"
+	"github.com/andygeiss/diego/pkg/survey/services"
+)
 
-### Running the Binary
+func main() {
+    // Initialize the repositories by using JSON-files.
+    expRepo := expRepos.NewFileRepository("../../../testdata/explanation.json")
+    infRepo := infRepos.NewFileRepository("../../../testdata/inference.json")
+    // Configure the engine to use a specific survey by name.
+    engine := engines.NewDefaultEngine("SURVEY NAME", infRepo)
+    // Combine the explanation repository and inference engine.
+    service := services.NewDefaultService(expRepo, engine)
+    // Get the facts by setting a specific condition.
+    facts, err := service.GetResultsByFacts([]string{"#Q1 = 1"})
+    ...    
+}
+```
 
-Ensure that the environment variables are set.
-Now run application by simply call the binary directly:
-
-    sudo BIND=":80" \
-        ENGINE_URL="http://127.0.0.1:3000" \
-        SURVEY="SURVEY NAME" \
-        APP_TITLE="DIEGO" \
-        ./build/package/app &
-
-    sudo BIND=":3000" \
-        EXP_REPO="proddata/explanation.json" \
-        INF_REPO="proddata/inference.json" \
-        SURVEY="SURVEY NAME" \
-        ./build/package/server &
-
-### Running with Docker
-
-    ./scripts/build.sh
-
-    docker run -d \
-        --name diego-app \
-        --publish 80:80 \
-        --volume `pwd`/vendor:/vendor \
-        --volume `pwd`/web:/web \
-        --env BIND=":80" \
-        --env ENGINE_URL="http://127.0.0.1:3000" \
-        --env SURVEY="SURVEY NAME" \
-        --env APP_TITLE="DIEGO" \
-        $USER/diego:latest /app
-
-    docker run -d \
-        --name diego-server \
-        --publish 3000:3000 \
-        --volume `pwd`/proddata:/data \
-        --env BIND=":3000" \
-        --env EXP_REPO="/data/explanation.json" \
-        --env INF_REPO="/data/inference.json" \
-        --env SURVEY="SURVEY NAME" \
-        $USER/diego:latest /server
+See the [testdata](https://github.com/andygeiss/diego/tree/master/testdata) directory for examples.
