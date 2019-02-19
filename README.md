@@ -6,8 +6,7 @@ DIEGO provides a framework to link practical user interfaces to domain specific 
 
 An expert system usually consists of three parts:
 * a knowledge base (facts and rules),
-* an inference engine (forward-chaining) and
-* an user interface (web).
+* an inference engine (forward-chaining).
 
 The inference engine uses a top-down method to take facts as they become available and
 apply rules to draw conclusions.
