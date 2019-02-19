@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestDefaultRepository_FindQuestionsBySurvey_Should_Return_One_Question(t *testing.T) {
+func TestFileRepository_FindQuestionsBySurvey_Should_Return_One_Question(t *testing.T) {
 	r := repositories.NewFileRepository("../../../testdata/explanation_1.json")
 	q, err := r.FindQuestionsBySurvey("Survey")
 	assert.That(t, err, is.Equal(nil))
@@ -15,7 +15,7 @@ func TestDefaultRepository_FindQuestionsBySurvey_Should_Return_One_Question(t *t
 	assert.That(t, q[0].Prompt, is.Equal("Go on Vacation?"))
 }
 
-func TestDefaultRepository_FindQuestionsBySurvey_Should_Return_Two_Questions(t *testing.T) {
+func TestFileRepository_FindQuestionsBySurvey_Should_Return_Two_Questions(t *testing.T) {
 	r := repositories.NewFileRepository("../../../testdata/explanation_2.json")
 	q, err := r.FindQuestionsBySurvey("Survey")
 	assert.That(t, err, is.Equal(nil))

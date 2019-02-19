@@ -7,7 +7,7 @@ import (
 	"testing"
 )
 
-func TestDefaultRepository_FindConceptByName_Should_Return_One_Concept(t *testing.T) {
+func TestFileRepository_FindConceptByName_Should_Return_One_Concept(t *testing.T) {
 	r := repositories.NewFileRepository("../../../testdata/inference_1.json")
 	c, err := r.FindConceptByName("one")
 	assert.That(t, err, is.Equal(nil))
