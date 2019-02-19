@@ -2,7 +2,7 @@
 
 [![Go Report Card](https://goreportcard.com/badge/github.com/andygeiss/diego)](https://goreportcard.com/report/github.com/andygeiss/diego)
 
-DIEGO provides a framework to link practical user interfaces to domain specific knowledge of experts.
+DIEGO is a data driven, forward-chaining, rule-based expert system written from scratch.
 
 An expert system usually consists of three parts:
 * a knowledge base (facts and rules),
