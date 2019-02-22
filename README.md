@@ -4,12 +4,13 @@
 
 DIEGO is a data driven, forward-chaining, rule-based expert system written from scratch.
 
-An expert system usually consists of three parts:
-* a knowledge base (facts and rules),
-* an inference engine (forward-chaining).
+[![Overview](diego.svg)](diego.svg)
 
-The inference engine uses a top-down method to take facts as they become available and
-apply rules to draw conclusions.
+An expert system usually consists of a Knowledge Base, an Inference Engine and the User Interface.
+
+* A **Knowledge Base** is a collection of different concepts with its facts and rules of a specific problem domain.
+* An **Inference Engine** uses a top-down method to take facts as they become available and apply rules to draw conclusions.
+* The **User Interface** uses an Explanation facility to explain the reasoning process to the user.
 
 ##### Table of Contents
 
@@ -25,9 +26,64 @@ apply rules to draw conclusions.
 
 ## Usage
 
-The following code ...
-* specifies the survey questions and options for the explanation repository and
-* specifies the facts and rules/conditions for the inference engine:
+### Example Rules
+
+    IF      A   (the "traffic light" is green)
+    THEN    X   (the action is "go")
+    
+    IF      B   (the "traffic light" is red)
+    THEN    Y   (the action is "stop")
+    
+This **Concept** could be defined as:
+
+```go
+concept := []*inference.Concept{
+    &inference.Concept{
+        Name:  "Example 1",
+        Facts: []string{},
+        Rules: []*inference.Rule{
+            &inference.Rule{
+                Conditions:  []string{"A"},
+                Conclusions: []string{"X"},
+            },
+            &inference.Rule{
+                Conditions:  []string{"B"},
+                Conclusions: []string{"Y"},
+            },
+        },
+    },
+}
+```
+
+### Example Explanation
+
+The conclusion "X" maybe is not obvious for the user of the expert system.
+Thus a Explanation facility is used to map different questions which its option to the facts, which its hidden from the users eye.     
+
+```go
+survey := return []*explanation.Survey{
+    &explanation.Survey{
+        Name: "Example 1",
+        Questions: []*explanation.Question{
+            &explanation.Question{
+                Prompt: "The traffic light is?",
+                Options: []*explanation.Option{
+                    &explanation.Option{
+                        Name:  "green",
+                        Value: "A",
+                    },
+                    &explanation.Option{
+                        Name:  "red",
+                        Value: "B",
+                    },
+                },
+            },
+        },
+    },
+}
+```
+ 
+See the [testdata](https://github.com/andygeiss/diego/tree/master/testdata) directory for more examples.
 
 ```go
 import (
@@ -50,5 +106,3 @@ func main() {
     ...    
 }
 ```
-
-See the [testdata](https://github.com/andygeiss/diego/tree/master/testdata) directory for examples.
