@@ -2,14 +2,16 @@ package explanation
 
 // Option ...
 type Option struct {
-	Name string
-	Value interface{}
+	Name        string      `json:"name"`
+	Description string      `json:"description"`
+	Value       interface{} `json:"value"`
 }
 
 // Question ...
 type Question struct {
-	Prompt  string
-	Options []*Option
+	Prompt      string    `json:"prompt"`
+	Description string    `json:"description"`
+	Options     []*Option `json:"options"`
 }
 
 // Repository ...
@@ -19,6 +21,7 @@ type Repository interface {
 
 // Survey ...
 type Survey struct {
-	Name string
-	Questions []*Question
+	Name        string      `json:"name"`
+	Description string      `json:"description"`
+	Questions   []*Question `json:"questions"`
 }

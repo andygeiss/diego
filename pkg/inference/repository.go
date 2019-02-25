@@ -2,9 +2,10 @@ package inference
 
 // Concept ...
 type Concept struct {
-	Name string
-	Facts []string
-	Rules []*Rule
+	Name        string   `json:"name"`
+	Description string   `json:"description"`
+	Facts       []string `json:"facts"`
+	Rules       []*Rule  `json:"rules"`
 }
 
 // Repository ...
@@ -14,6 +15,6 @@ type Repository interface {
 
 // Rule ...
 type Rule struct {
-	Conditions  []string
-	Conclusions []string
+	Conditions  []string `json:"conditions"`
+	Conclusions []string `json:"conclusions"`
 }
